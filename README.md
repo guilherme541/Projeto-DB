@@ -1,8 +1,13 @@
 # Projeto-DB
 
----
-title: Order example
----
+
+## Alunos
+
+## Desc
+
+## Diagrama relacional
+
+```mermaid
 erDiagram
     ALUNOS ||--o{ INSCRICAO-DISCIPLINAS : inscreve-se
     ALUNOS ||--o{ MEMBROS-TCC : participa
@@ -81,4 +86,4 @@ erDiagram
         int GrupoTCCID FK
         int AlunoID FK
     }
-
+```
