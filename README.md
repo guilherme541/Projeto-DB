@@ -1,7 +1,8 @@
 # Projeto-DB
 
-
-
+---
+title: Order example
+---
 erDiagram
     ALUNOS ||--o{ INSCRICAO-DISCIPLINAS : inscreve-se
     ALUNOS ||--o{ MEMBROS-TCC : participa
@@ -80,3 +81,4 @@ erDiagram
         int GrupoTCCID FK
         int AlunoID FK
     }
+
