@@ -9,16 +9,16 @@
 
 ```mermaid
 erDiagram
-    ALUNOS ||--o{ INSCRICAO-DISCIPLINAS : inscreve-se
-    ALUNOS ||--o{ MEMBROS-TCC : participa
-    PROFESSORES ||--o{ HISTORICO-DOCENTE : ministra
-    PROFESSORES ||--o{ GRUPOS-TCC : orienta
-    DEPARTAMENTOS ||--|| PROFESSORES : tem-chefe
-    DEPARTAMENTOS ||--o{ CURSOS : contem
-    CURSOS ||--o{ DISCIPLINAS : oferece
-    DISCIPLINAS ||--o{ MATRIZ-CURRICULAR : incluida-em
-    CURSOS ||--o{ MATRIZ-CURRICULAR : define
-    MATRIZ-CURRICULAR ||--o{ INSCRICAO-DISCIPLINAS : usa
+    ALUNOS ||--o{ INSCRICAO-DISCIPLINAS : AlunoID
+    ALUNOS ||--o{ MEMBROS-TCC : AlunoID
+    PROFESSORES ||--o{ HISTORICO-DOCENTE : ProfessorID
+    PROFESSORES ||--o{ GRUPOS-TCC : ProfessorID
+    DEPARTAMENTOS ||--|| PROFESSORES : DepartamentoID
+    DEPARTAMENTOS ||--o{ CURSOS : DepartamentoID
+    CURSOS ||--o{ DISCIPLINAS : CursoID
+    DISCIPLINAS ||--o{ MATRIZ-CURRICULAR : CursoID
+    CURSOS ||--o{ MATRIZ-CURRICULAR : CursoID
+    MATRIZ-CURRICULAR ||--o{ INSCRICAO-DISCIPLINAS : DisciplinaID
 
     ALUNOS {
         int AlunoID PK
