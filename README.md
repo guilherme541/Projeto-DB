@@ -9,8 +9,8 @@
 
 ```mermaid
 erDiagram
-    ALUNOS ||--o{ INSCRICAO-DISCIPLINAS : AlunoID
-    ALUNOS ||--o{ MEMBROS-TCC : AlunoID
+    ALUNOS ||--o{ INSCRICAO-DISCIPLINAS : RA
+    ALUNOS ||--o{ MEMBROS-TCC : RA
     PROFESSORES ||--o{ HISTORICO-DOCENTE : ProfessorID
     PROFESSORES ||--o{ GRUPOS-TCC : ProfessorID
     DEPARTAMENTOS ||--|| PROFESSORES : DepartamentoID
