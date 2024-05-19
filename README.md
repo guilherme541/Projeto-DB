@@ -21,7 +21,7 @@ erDiagram
     MATRIZ-CURRICULAR ||--o{ INSCRICAO-DISCIPLINAS : DisciplinaID
 
     ALUNOS {
-        int AlunoID PK
+        int RA PK
         string Nome
         date DataNascimento
         string Email
@@ -61,7 +61,7 @@ erDiagram
 
     INSCRICAO-DISCIPLINAS {
         int InscricaoID PK
-        int AlunoID FK
+        int RA FK
         int DisciplinaID FK
         int Ano
         int Semestre
@@ -84,6 +84,6 @@ erDiagram
 
     MEMBROS-TCC {
         int GrupoTCCID FK
-        int AlunoID FK
+        int RA FK
     }
 ```
