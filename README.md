@@ -9,16 +9,16 @@
 
 ```mermaid
 erDiagram
-    ALUNOS ||--o{ INSCRICAO-DISCIPLINAS : RA
-    ALUNOS ||--o{ MEMBROS-TCC : RA
-    PROFESSORES ||--o{ HISTORICO-DOCENTE : ProfessorID
-    PROFESSORES ||--o{ GRUPOS-TCC : ProfessorID
+    ALUNOS ||--o{ INSCRICAO_DISCIPLINAS : RA
+    ALUNOS ||--o{ MEMBROS_TCC : RA
+    PROFESSORES ||--o{ HISTORICO_DOCENTE : ProfessorID
+    PROFESSORES ||--o{ GRUPOS_TCC : ProfessorID
     DEPARTAMENTOS ||--|| PROFESSORES : DepartamentoID
     DEPARTAMENTOS ||--o{ CURSOS : DepartamentoID
     CURSOS ||--o{ DISCIPLINAS : CursoID
-    DISCIPLINAS ||--o{ MATRIZ-CURRICULAR : CursoID
-    CURSOS ||--o{ MATRIZ-CURRICULAR : CursoID
-    MATRIZ-CURRICULAR ||--o{ INSCRICAO-DISCIPLINAS : DisciplinaID
+    DISCIPLINAS ||--o{ MATRIZ_CURRICULAR : CursoID
+    CURSOS ||--o{ MATRIZ_CURRICULAR : CursoID
+    MATRIZ_CURRICULAR ||--o{ INSCRICAO_DISCIPLINAS : DisciplinaID
 
     ALUNOS {
         int RA PK
@@ -52,14 +52,14 @@ erDiagram
         int CursoID FK
     }
 
-    MATRIZ-CURRICULAR {
+    MATRIZ_CURRICULAR {
         int MatrizID PK
         int CursoID FK
         int DisciplinaID FK
         int SemestreRecomendado
     }
 
-    INSCRICAO-DISCIPLINAS {
+    INSCRICAO_DISCIPLINAS {
         int InscricaoID PK
         int RA FK
         int DisciplinaID FK
@@ -68,7 +68,7 @@ erDiagram
         float NotaFinal
     }
 
-    HISTORICO-DOCENTE {
+    HISTORICO_DOCENTE {
         int HistoricoID PK
         int ProfessorID FK
         int DisciplinaID FK
@@ -76,13 +76,13 @@ erDiagram
         int Semestre
     }
 
-    GRUPOS-TCC {
+    GRUPOS_TCC {
         int GrupoTCCID PK
         string Tema
         int ProfessorOrientadorID FK
     }
 
-    MEMBROS-TCC {
+    MEMBROS_TCC {
         int GrupoTCCID FK
         int RA FK
     }
