@@ -14,7 +14,7 @@
 
 ```mermaid
 erDiagram
-    ALUNOS ||--o{ INSCRICAO_DISCIPLINAS : RA
+    ALUNOS ||--o{ HISTORICO_DISCIPLINAS : RA
     ALUNOS ||--o{ MEMBROS_TCC : RA
     PROFESSORES ||--o{ HISTORICO_DOCENTE : ProfessorID
     PROFESSORES ||--o{ GRUPOS_TCC : ProfessorID
@@ -23,7 +23,7 @@ erDiagram
     CURSOS ||--o{ DISCIPLINAS : CursoID
     DISCIPLINAS ||--o{ MATRIZ_CURRICULAR : CursoID
     CURSOS ||--o{ MATRIZ_CURRICULAR : CursoID
-    MATRIZ_CURRICULAR ||--o{ INSCRICAO_DISCIPLINAS : DisciplinaID
+    MATRIZ_CURRICULAR ||--o{ HISTORICO_DISCIPLINAS : DisciplinaID
 
     ALUNOS {
         int RA PK
@@ -64,7 +64,7 @@ erDiagram
         int SemestreRecomendado
     }
 
-    INSCRICAO_DISCIPLINAS {
+    HISTORICO_DISCIPLINAS {
         int InscricaoID PK
         int RA FK
         int DisciplinaID FK
