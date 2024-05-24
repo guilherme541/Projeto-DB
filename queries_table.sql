@@ -25,8 +25,7 @@ SELECT
     a.RA,
     a.Nome,
     a.Email
-FROM 
-    ALUNOS a
+FROM ALUNOS a
 WHERE NOT EXISTS (
         SELECT 
             1
