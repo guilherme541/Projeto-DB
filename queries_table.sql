@@ -7,7 +7,7 @@ SELECT
     i.NotaFinal
 FROM INSCRICAO_DISCIPLINAS i
 INNER JOIN DISCIPLINAS d ON i.DisciplinaID = d.DisciplinaID
-WHERE i.RA = '960419885';
+WHERE i.RA = '960419885'; -- DIGITE UM RA QUE ESTEJA NA TABELA DADOS ALEATORIOS
 
 
 
@@ -19,8 +19,7 @@ SELECT
     h.Ano
 FROM HISTORICO_DOCENTE h
 INNER JOIN DISCIPLINAS d ON h.DisciplinaID = d.DisciplinaID
-WHERE 
-    h.ProfessorID = 'inserir_ProfessorID_aqui';
+WHERE h.ProfessorID = 'DIGITE UM ID DO PROFESSOR QUE ESTEJA NA TABELA DADOS ALEATORIOS';
 
 
 
@@ -40,7 +39,7 @@ WHERE
     )
     AND EXISTS (
         SELECT 1 FROM INSCRICAO_DISCIPLINAS id
-        WHERE id.RA = a.RA AND id.Ano = 'inserir_ano_aqui'AND id.Semestre = 'inserir_semestre_aqui'
+        WHERE id.RA = a.RA AND id.Ano = ' DIGITE UM ANO QUE ESTEJA NA TABELA DADOS ALEATORIOS'AND id.Semestre = 'DIGITE UM SEMESTRE QUE ESTEJA NA TABELA DADOS ALEATORIOS'
     );
 
 
@@ -60,8 +59,7 @@ SELECT
     p.Nome AS NomeOrientador,
     mt.RA,
     a.Nome AS NomeAluno
-FROM 
-    GRUPOS_TCC gt
+FROM GRUPOS_TCC gt
 INNER JOIN PROFESSORES p ON gt.ProfessorOrientadorID = p.ProfessorID
 INNER JOIN MEMBROS_TCC mt ON gt.GrupoTCCID = mt.GrupoTCCID
 INNER JOIN ALUNOS a ON mt.RA = a.RA;
