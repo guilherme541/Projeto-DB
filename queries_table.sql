@@ -10,7 +10,6 @@ INNER JOIN DISCIPLINAS d ON i.DisciplinaID = d.DisciplinaID
 WHERE i.RA = '960419885'; -- DIGITE UM RA QUE ESTEJA NA TABELA DADOS ALEATORIOS
 
 
-
 SELECT 
     h.ProfessorID,
     h.DisciplinaID,
@@ -22,15 +21,13 @@ INNER JOIN DISCIPLINAS d ON h.DisciplinaID = d.DisciplinaID
 WHERE h.ProfessorID = 'DIGITE UM ID DO PROFESSOR QUE ESTEJA NA TABELA DADOS ALEATORIOS';
 
 
-
 SELECT 
     a.RA,
     a.Nome,
     a.Email
 FROM 
     ALUNOS a
-WHERE 
-    NOT EXISTS (
+WHERE NOT EXISTS (
         SELECT 
             1
         FROM  MATRIZ_CURRICULAR mc
@@ -49,7 +46,6 @@ SELECT
     d.Nome AS NomeDepartamento
 FROM PROFESSORES p
 INNER JOIN DEPARTAMENTOS d ON p.ProfessorID = d.CoordenadorID;
-
 
 
 SELECT 
