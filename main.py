@@ -2,7 +2,7 @@ from faker import Faker
 import psycopg2
 import random
 
-cursos = ['Ciência da Computação', 'Engenharia Elétrica', 'Engenharia Mecânica', 'Engenharia de Produção','Administração']
+cursos = ['Ciência da Computação', 'Engenharia Elétrica', 'Engenharia Mecânica', 'Engenharia de Produção', 'Administração']
 departamentos = ['Ciência da Computação', 'Matemática', 'Física', 'Engenharia Elétrica', 'Engenharia de Produção']
 disciplinas = [
     'Algoritmos e Estruturas de Dados', 'Cálculo I', 'Cálculo II', 'Cálculo III',
@@ -17,31 +17,29 @@ disciplinas = [
 
 fake = Faker("pt_BR")
 
-#  PostgreSQL
+# Conexão com o banco de dados PostgreSQL MUDAR A CONEXÃO
 conn = psycopg2.connect(
-    host="localhost",
-    user="postgres",
-    password="fifa2015g",
-    dbname="FEI"
+    host="",
+    user="",
+    password="",
+    dbname=""
 )
 cursor = conn.cursor()
 
 
-# Gerar RA
 def gerar_ra():
-    return random.randint(10000000000, 99999999999)
+    return random.randint(100000000, 999999999)
 
-#Gerar ProfessorID
+
 def gerar_professor_id():
     return random.randint(10000000000, 99999999999)
 
-# DEPARTAMENTOS
+
 def insert_departamentos():
     for i, departamento in enumerate(departamentos):
         cursor.execute("INSERT INTO DEPARTAMENTOS (DepartamentoID, Nome) VALUES (%s, %s)", (i + 1, departamento))
     conn.commit()
 
-# PROFESSORES
 def insert_professores(n):
     cursor.execute("SELECT DepartamentoID FROM DEPARTAMENTOS")
     departamentos = cursor.fetchall()
@@ -54,7 +52,7 @@ def insert_professores(n):
         )
     conn.commit()
 
-# CURSOS
+
 def insert_cursos():
     cursor.execute("SELECT DepartamentoID FROM DEPARTAMENTOS")
     departamentos = cursor.fetchall()
@@ -66,7 +64,7 @@ def insert_cursos():
         )
     conn.commit()
 
-# ALUNOS
+
 def insert_alunos(n):
     for i in range(n):
         ra = gerar_ra()
@@ -76,7 +74,7 @@ def insert_alunos(n):
         )
     conn.commit()
 
-# DISCIPLINAS
+
 def insert_disciplinas():
     cursor.execute("SELECT CursoID FROM CURSOS")
     cursos = cursor.fetchall()
@@ -88,7 +86,7 @@ def insert_disciplinas():
         )
     conn.commit()
 
-# MATRIZ_CURRICULAR
+
 def insert_matriz_curricular():
     cursor.execute("SELECT CursoID FROM CURSOS")
     cursos = cursor.fetchall()
@@ -103,22 +101,38 @@ def insert_matriz_curricular():
         )
     conn.commit()
 
-# NSCRICAO_DISCIPLINAS
-def insert_inscricao_disciplinas(n):
+
+def insert_historico_disciplinas():
     cursor.execute("SELECT RA FROM ALUNOS")
     alunos = cursor.fetchall()
     cursor.execute("SELECT DisciplinaID FROM DISCIPLINAS")
     disciplinas = cursor.fetchall()
-    for i in range(n):
-        ra = random.choice(alunos)[0]
-        disciplina_id = random.choice(disciplinas)[0]
-        cursor.execute(
-            "INSERT INTO INSCRICAO_DISCIPLINAS (InscricaoID, RA, DisciplinaID, Ano, Semestre, NotaFinal) VALUES (%s, %s, %s, %s, %s, %s)",
-            (i + 1, ra, disciplina_id, random.randint(2010, 2023), random.randint(1, 2), round(random.uniform(0, 10), 2))
-        )
+    inscricao_id = 1
+    for ano in range(2010, 2024):
+        for aluno in alunos[:10]:
+            ra = aluno[0]
+            disciplinas_aluno = random.sample(disciplinas, 5)
+            semestre = random.randint(1, 2)
+            for disciplina in disciplinas_aluno[:4]:
+                disciplina_id = disciplina[0]
+                nota = round(random.uniform(5, 10) if random.random() > 0.3 else random.uniform(0, 4.9), 2)
+                cursor.execute(
+                    "INSERT INTO HISTORICO_DISCIPLINAS (InscricaoID, RA, DisciplinaID, Ano, Semestre, NotaFinal) VALUES (%s, %s, %s, %s, %s, %s)",
+                    (inscricao_id, ra, disciplina_id, ano, semestre, nota)
+                )
+                inscricao_id += 1
+
+            disciplina_id = disciplinas_aluno[4][0]
+            nota = round(random.uniform(0, 10), 2)
+            cursor.execute(
+                "INSERT INTO HISTORICO_DISCIPLINAS (InscricaoID, RA, DisciplinaID, Ano, Semestre, NotaFinal) VALUES (%s, %s, %s, %s, %s, %s)",
+                (inscricao_id, ra, disciplina_id, random.randint(2010, 2023), random.randint(1, 2), nota)
+            )
+            inscricao_id += 1
+
     conn.commit()
 
-#  HISTORICO_DOCENTE
+
 def insert_historico_docente(n):
     cursor.execute("SELECT ProfessorID FROM PROFESSORES")
     professores = cursor.fetchall()
@@ -133,7 +147,7 @@ def insert_historico_docente(n):
         )
     conn.commit()
 
-#  GRUPOS_TCC
+# Inserir dados na tabela GRUPOS_TCC
 def insert_grupos_tcc(n):
     cursor.execute("SELECT ProfessorID FROM PROFESSORES")
     professores = cursor.fetchall()
@@ -145,7 +159,7 @@ def insert_grupos_tcc(n):
         )
     conn.commit()
 
-#  MEMBROS_TCC
+
 def insert_membros_tcc():
     cursor.execute("SELECT GrupoTCCID FROM GRUPOS_TCC")
     grupos_tcc = cursor.fetchall()
@@ -161,7 +175,7 @@ def insert_membros_tcc():
             )
     conn.commit()
 
-# Função para definir os coordenadores dos departamentos
+
 def definir_coordenadores():
     cursor.execute("SELECT DepartamentoID FROM DEPARTAMENTOS")
     departamentos = cursor.fetchall()
@@ -182,14 +196,12 @@ insert_cursos()
 insert_alunos(50)
 insert_disciplinas()
 insert_matriz_curricular()
-insert_inscricao_disciplinas(200)
+insert_historico_disciplinas()
 insert_historico_docente(50)
 insert_grupos_tcc(10)
 insert_membros_tcc()
 definir_coordenadores()
 
-
 cursor.close()
 conn.close()
-
 print("[!] Ready...")
