@@ -21,23 +21,25 @@ INNER JOIN DISCIPLINAS D ON H.DisciplinaID = D.DisciplinaID
 WHERE H.ProfessorID = 'DIGITE UM ID DO PROFESSOR QUE ESTEJA NA TABELA DADOS ALEATORIOS';
 
 
-SELECT 
-    A.RA,
+SELECT DISTINCT 
+    H.RA,
     A.Nome,
-    A.Email
-FROM ALUNOS A
-WHERE NOT EXISTS (
-        SELECT 
-            1
-        FROM  MATRIZ_CURRICULAR M
-        LEFT JOIN INSCRICAO_DISCIPLINAS id ON M.DisciplinaID = id.DisciplinaID AND id.RA = A.RA
-        WHERE id.NotaFinal < 5.0 OR id.RA IS NULL
-    )
-    AND EXISTS (
-        SELECT 1 FROM HISTORICO_DISCIPLINAS H
-        WHERE H.RA = A.RA AND H.Ano = ' DIGITE UM ANO QUE ESTEJA NA TABELA DADOS ALEATORIOS'AND H.Semestre = 'DIGITE UM SEMESTRE QUE ESTEJA NA TABELA DADOS ALEATORIOS'
-    );
-
+    H.Semestre,
+    H.Ano
+FROM HISTORICO_DISCIPLINAS H
+INNER JOIN DISCIPLINAS D ON H.DisciplinaID = D.DisciplinaID
+INNER JOIN ALUNOS A ON H.RA = A.RA
+INNER JOIN (
+    SELECT 
+        RA,
+        Semestre,
+        Ano
+    FROM HISTORICO_DISCIPLINAS
+    WHERE Ano = '2023' AND Semestre = '2' -- MUDAR AQUI O ANO E O SEMESTRE
+    GROUP BY RA, Semestre, Ano
+    HAVING MIN(NotaFinal) >= 5) Aprovados ON H.RA = Aprovados.RA AND H.Semestre = Aprovados.Semestre AND H.Ano = Aprovados.Ano
+WHERE H.Ano = '2023' AND H.Semestre = '2' -- MUDAR AQUI O ANO E O SEMESTRE
+ORDER BY H.RA;
 
 SELECT 
     P.ProfessorID,
