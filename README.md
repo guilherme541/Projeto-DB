@@ -3,7 +3,7 @@
 
 ## Alunos
     Guilherme Couto Gomes 22.122.035-3
-    Lucas Dias Batista 22.122.035-3
+    Lucas Dias Batista 22.122.065-0
 ## Descricao 
     Projeto do curso de banco de dados do centro universitario FEI
     Banco de Dados SGPD PostGree SQL
